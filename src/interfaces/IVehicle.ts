@@ -6,14 +6,15 @@ const vehicleZodSchema = z.object({
   year: z.number()
     .int()
     .positive()
-    .min(1900)
-    .max(2022),
+    .gte(1900)
+    .lte(2022),
   color: z.string()
     .length(3),
   status: z.boolean()
     .optional(),
   buyValue: z.number()
-    .int(),
+    .int()
+    .positive(),
 });
 
 export type IVehicle = z.infer<typeof vehicleZodSchema>;
