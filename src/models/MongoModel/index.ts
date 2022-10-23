@@ -19,11 +19,11 @@ export default abstract class MongoModel<T> implements IModel<T> {
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error('');
-    return this._model.updateOne({ _id }, { ...obj }) as T;
+    return this._model.findOneAndUpdate({ _id }, { ...obj });
   }
 
   public async delete(_id: string): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error('');
-    return this._model.deleteOne({ _id }) as T;
+    return this._model.findOneAndDelete({ _id });
   }
 }

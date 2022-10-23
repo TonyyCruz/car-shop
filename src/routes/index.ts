@@ -3,6 +3,6 @@ import carsRoute from './carsRoute';
 
 const routes = Router();
 
-routes.post('/cars', carsRoute);
+routes.use('/cars', carsRoute);
 
 export default routes;
