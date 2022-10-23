@@ -1,19 +1,12 @@
-// import {  } from 'zod';
+import { ZodObject, ZodRawShape } from 'zod';
 import { IModel } from '../../interfaces/IModel';
 import IService from '../../interfaces/IService';
 
 export default abstract class MongoService<T> implements IService<T> {
-  constructor(protected _model: IModel<T>, private _zodSchema: any) {}
-
-  private zodValidate(obj: Partial<T>): void {
-    const parsed = this._zodSchema.safeParse(obj);
-    console.log('zod validate', parsed);
-    
-    if (!parsed.success) throw new Error('');
-  }
+  constructor(protected _model: IModel<T>, private _zodSchema: ZodObject<ZodRawShape>) {}
 
   public async create(obj: T): Promise<T> {
-    this.zodValidate(obj);
+    this._zodSchema.parse(obj);
     return this._model.create(obj);
   }
 
@@ -28,7 +21,7 @@ export default abstract class MongoService<T> implements IService<T> {
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    this.zodValidate(obj);
+    this._zodSchema.parse(obj);
     const response = this._model.update(_id, { ...obj });
     if (!response) throw new Error('');
     return response;

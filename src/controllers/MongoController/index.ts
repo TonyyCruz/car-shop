@@ -6,8 +6,6 @@ export default abstract class MongoController<T> implements IController {
   constructor(protected _service: IService<T>) {}
 
   public async create(req: Request, res: Response): Promise<Response> {
-    console.log('===================CALLED====================');
-    
     const result = await this._service.create(req.body);
     return res.status(201).json(result);
   }
