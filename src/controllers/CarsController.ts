@@ -1,4 +1,4 @@
-import MongoController from './MongoController';
+import MongoController from './DefaultController';
 import IService from '../interfaces/IService';
 import { ICar } from '../interfaces/ICar';
 

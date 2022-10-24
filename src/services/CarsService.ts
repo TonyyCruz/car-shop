@@ -1,5 +1,5 @@
 import carZodSchema, { ICar } from '../interfaces/ICar';
-import MongoService from './MongoService';
+import MongoService from './DefaultService';
 import { IModel } from '../interfaces/IModel';
 
 export default class CarsService extends MongoService<ICar> {
