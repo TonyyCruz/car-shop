@@ -10,6 +10,8 @@ const MotorcyclesMongooseSchema = new Schema<IMotorcycle>({
   buyValue: Number,
   category: String,
   engineCapacity: Number,
+}, {
+  versionKey: false,
 });
 
 export default class MotorcyclesModel extends MongoModel<IMotorcycle> {
