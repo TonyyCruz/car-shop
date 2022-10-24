@@ -19,7 +19,7 @@ export default abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error('');
+    if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidIdHexadecimal);
     return this._model.findOneAndUpdate({ _id }, obj);
   }
 

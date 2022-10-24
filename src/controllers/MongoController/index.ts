@@ -24,7 +24,7 @@ export default abstract class MongoController<T> implements IController {
   public async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const result = await this._service.update(id, req.body);
-    return res.status(201).json(result);
+    return res.status(200).json(result);
   }
   
   public async delete(req: Request, res: Response): Promise<Response> {
