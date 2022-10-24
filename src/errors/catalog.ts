@@ -1,11 +1,10 @@
 export enum ErrorTypes {
-  InsufficientData = 'InsufficientData',
-  InvalidData = 'InvalidData',
-
+  ObjectNotFound = 'ObjectNotFound',
+  InvalidIdHexadecimal = 'InvalidIdHexadecimal',
 }
 
 type ErrorResponseObject = { 
-  message: string;
+  error: string;
   httpStatus: number
 };
 
@@ -14,13 +13,12 @@ export type ErrorCatalog = {
 };
 
 export const errorCatalog: ErrorCatalog = {
-  InsufficientData: {
-    message: 'All values are mandatory',
+  ObjectNotFound: {
+    error: 'Object not found',
+    httpStatus: 404,
+  },
+  InvalidIdHexadecimal: {
+    error: 'Id must have 24 hexadecimal characters',
     httpStatus: 400,
   },
-  InvalidData: {
-    message: 'Some data is invalid',
-    httpStatus: 400,
-  },
-
 };

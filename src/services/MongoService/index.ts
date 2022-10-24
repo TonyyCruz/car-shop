@@ -1,6 +1,7 @@
 import { ZodObject, ZodRawShape } from 'zod';
 import { IModel } from '../../interfaces/IModel';
 import IService from '../../interfaces/IService';
+import { ErrorTypes } from '../../errors/catalog';
 
 export default abstract class MongoService<T> implements IService<T> {
   constructor(protected _model: IModel<T>, private _zodSchema: ZodObject<ZodRawShape>) {}
@@ -16,7 +17,7 @@ export default abstract class MongoService<T> implements IService<T> {
 
   public async readOne(_id: string): Promise<T> {
     const response = await this._model.readOne(_id);
-    if (!response) throw new Error('');
+    if (!response) throw new Error(ErrorTypes.ObjectNotFound);
     return response;
   }
 
