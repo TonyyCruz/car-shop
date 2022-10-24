@@ -30,6 +30,6 @@ export default abstract class MongoController<T> implements IController {
   public async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const result = await this._service.delete(id);
-    return res.status(201).json(result);
+    return res.status(204).json(result);
   }
 }
