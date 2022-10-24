@@ -14,8 +14,8 @@ const carsMongooseSchema = new Schema<ICar>({
   versionKey: false,
 });
 
-export default class CarsModels extends MongoModel<ICar> {
-  constructor(model = mongooseCreateModel('CarsModels', carsMongooseSchema)) {
+export default class CarsModel extends MongoModel<ICar> {
+  constructor(model = mongooseCreateModel('CarsModel', carsMongooseSchema)) {
     super(model);
   }
 }

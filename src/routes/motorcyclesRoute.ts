@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import MotorcyclesModels from '../models/MotorcyclesModels';
+import MotorcyclesModels from '../models/MotorcyclesModel';
 import MotorcyclesService from '../services/MotorcyclesService';
 import MotorcyclesController from '../controllers/MotorcyclesController';
 
