@@ -41,6 +41,19 @@ describe('Testa a camada de service "carsService"', () => {
       expect(errorMessage).to.be.deep.equal('Should be at least 3 characters');
     });
 
+    it('Testa se é gerado um erro ao enviar um tipo incorreto no atributo "model" do objeto "car"',
+    async () => {
+      let errorMessage;
+    const incorrectObject = { ...carMock, model: 22 }
+    try {
+      await carsService.create(incorrectObject);
+    } catch (err: any) {
+      const [objError] = err.issues
+      errorMessage = objError.message;
+    }
+    expect(errorMessage).to.be.deep.equal('Expected string, received number');
+  });
+
     it('Testa se é gerado um erro ao enviar um numero maior que 2022 no atributo "year" do objeto "car"',
     async () => {
       let errorMessage;
@@ -67,6 +80,19 @@ describe('Testa a camada de service "carsService"', () => {
       expect(errorMessage).to.be.deep.equal('Value should be greater than or equal to 1900');
     })
 
+    it('Testa se é gerado um erro ao enviar um tipo errado no atributo "year" do objeto "car"',
+    async () => {
+      let errorMessage;
+      const incorrectObject = { ...carMock, year: '2000' }
+      try {
+        await carsService.create(incorrectObject);
+      } catch (err: any) {
+        const [objError] = err.issues
+        errorMessage = objError.message;
+      }
+      expect(errorMessage).to.be.deep.equal('Expected number, received string');
+    })
+
     it('Testa se é gerado um erro ao enviar menos de 3 caracteres no atributo "color" do objeto "car"',
       async () => {
         let errorMessage;
@@ -79,6 +105,19 @@ describe('Testa a camada de service "carsService"', () => {
       }
       expect(errorMessage).to.be.deep.equal('Should be at least 3 characters');
     });
+
+    it('Testa se é gerado um erro ao enviar um tipo errado no atributo "color" do objeto "car"',
+    async () => {
+      let errorMessage;
+    const incorrectObject = { ...carMock, color: true }
+    try {
+      await carsService.create(incorrectObject);
+    } catch (err: any) {
+      const [objError] = err.issues
+      errorMessage = objError.message;
+    }
+    expect(errorMessage).to.be.deep.equal('Expected string, received boolean');
+  });
 
     it('Testa se é gerado um erro ao enviar um numero negativo no atributo "buyValue" do objeto "car"',
     async () => {
@@ -104,6 +143,19 @@ describe('Testa a camada de service "carsService"', () => {
         errorMessage = objError.message;
       }
       expect(errorMessage).to.be.deep.equal('Expected integer, received float');
+    });
+
+    it('Testa se é gerado um erro ao enviar um tipo incorreto no atributo "buyValue" do objeto "car"',
+    async () => {
+      let errorMessage;
+      const incorrectObject = { ...carMock, buyValue: [] }
+      try {
+        await carsService.create(incorrectObject);
+      } catch (err: any) {
+        const [objError] = err.issues
+        errorMessage = objError.message;
+      }
+      expect(errorMessage).to.be.deep.equal('Expected number, received array');
     });
 
     it('Testa se é gerado um erro ao enviar um numero maior que 4 no atributo "doorsQty" do objeto "car"',
@@ -158,6 +210,19 @@ describe('Testa a camada de service "carsService"', () => {
       expect(errorMessage).to.be.deep.equal('Expected integer, received float');
     });
 
+    it('Testa se é gerado um erro ao enviar um tipo invalido no atributo "doorsQty" do objeto "car"',
+    async () => {
+      let errorMessage;
+      const incorrectObject = { ...carMock, doorsQty: {} }
+      try {
+        await carsService.create(incorrectObject);
+      } catch (err: any) {
+        const [objError] = err.issues
+        errorMessage = objError.message;
+      }
+      expect(errorMessage).to.be.deep.equal('Expected number, received object');
+    });
+
     it('Testa se é gerado um erro ao enviar um numero maior que 7 no atributo "seatsQty" do objeto "car"',
     async () => {
       let errorMessage;
@@ -208,6 +273,19 @@ describe('Testa a camada de service "carsService"', () => {
         errorMessage = objError.message;
       }
       expect(errorMessage).to.be.deep.equal('Expected integer, received float');
+    });
+
+    it('Testa se é gerado um erro ao enviar um tipo invalido no atributo "seatsQty" do objeto "car"',
+    async () => {
+      let errorMessage;
+      const incorrectObject = { ...carMock, seatsQty: '5' }
+      try {
+        await carsService.create(incorrectObject);
+      } catch (err: any) {
+        const [objError] = err.issues
+        errorMessage = objError.message;
+      }
+      expect(errorMessage).to.be.deep.equal('Expected number, received string');
     });
   });
 
@@ -461,6 +539,38 @@ describe('Testa a camada de service "carsService"', () => {
           errorMessage = objError.message;
         }
         expect(errorMessage).to.be.deep.equal('Expected integer, received float');
+      });
+    });
+
+      //  ======================  DELETE  ======================  //
+    describe.only('Testa a função "delete" para excluir um carro no banco de dados', () => {
+
+      before(async () => {
+        sinon
+          .stub(carsModel, 'delete')
+          .onCall(0).resolves(null)
+          .resolves(carMockWithId)
+      });
+    
+      after(()=>{
+        sinon.restore();
+      })
+
+      it('Testa se é gerado um erro ao não encontrar um carro com o id enviado',
+      async () => {
+        const incorrectCarId = 'incorrectId';
+        let errorMessage;
+        try {
+          await carsService.delete(incorrectCarId);
+        } catch (err: any) {
+          errorMessage = err.message;
+        }
+        expect(errorMessage).to.be.deep.equal('ObjectNotFound');
+      });
+    
+      it('Testa se é possível excluir um carro com o id correto, e se o carro excluido é retornado', async () => {
+        const newCar = await carsService.delete(correctCarId);
+        expect(newCar).to.be.deep.equal(carMockWithId);
       });
     });
 });
