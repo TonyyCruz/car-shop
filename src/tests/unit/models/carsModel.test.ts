@@ -7,6 +7,7 @@ import { ErrorTypes } from '../../../errors/catalog';
 
 describe('Testa a camada de models "CarsModel"', () => {
   const carsModel = new CarsModel();
+  const correctCarId = '6354cad79fe2a3706be16eb6';
 
   //  ======================  POST  ======================  //
   describe('Testa a função "create"', () => {
@@ -61,7 +62,7 @@ describe('Testa a camada de models "CarsModel"', () => {
     })
 
     it('Testa se ao receber um "id" correto, é a função "readOne" retorna um carro no formato esperado', async () => {
-      const searchedCar = await carsModel.readOne('6354cad79fe2a3706be16eb6');
+      const searchedCar = await carsModel.readOne(correctCarId);
       expect(searchedCar).to.be.deep.equal(carMockWithId);
     });
 
@@ -83,7 +84,7 @@ describe('Testa a camada de models "CarsModel"', () => {
 
     //  ======================  PUT  ======================  //
 
-    describe.only('Testa a função "update"', () => {
+    describe('Testa a função "update"', () => {
 
       before(async () => {
         sinon
@@ -97,7 +98,7 @@ describe('Testa a camada de models "CarsModel"', () => {
       })
   
       it('Testa se ao receber um "id" e um objeto "car" no formato correto, a função "update" retorna o carro atualizado', async () => {
-        const searchedCar = await carsModel.update('6354cad79fe2a3706be16eb6', carMock);
+        const searchedCar = await carsModel.update(correctCarId, carMock);
         expect(searchedCar).to.be.deep.equal(carMockWithId);
       });
   
@@ -119,7 +120,7 @@ describe('Testa a camada de models "CarsModel"', () => {
 
         //  ======================  DELETE  ======================  //
 
-        describe.only('Testa a função "delete"', () => {
+        describe('Testa a função "delete"', () => {
 
           before(async () => {
             sinon
@@ -133,7 +134,7 @@ describe('Testa a camada de models "CarsModel"', () => {
           })
       
           it('Testa se ao receber um "id" correto, o objeto referenciado é deletado e seu "cadaver" é enviado', async () => {
-            const searchedCar = await carsModel.delete('6354cad79fe2a3706be16eb6');
+            const searchedCar = await carsModel.delete(correctCarId);
             expect(searchedCar).to.be.deep.equal(carMockWithId);
           });
       
