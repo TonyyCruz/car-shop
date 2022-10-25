@@ -47,12 +47,13 @@ describe('Testa a camada de models "CarsModel"', () => {
     });
   })
 
-  describe.only('Testa a função "readOne"', () => {
+  describe('Testa a função "readOne"', () => {
 
     before(async () => {
       sinon
       .stub(Model, 'findOne')
-      .resolves(carMockWithId);
+      .onCall(0).resolves(carMockWithId)
+      .onCall(1).resolves(null);
     });
   
     after(()=>{
@@ -60,8 +61,8 @@ describe('Testa a camada de models "CarsModel"', () => {
     })
 
     it('Testa se ao receber um "id" correto, é a função "readOne" retorna um carro no formato esperado', async () => {
-      const newCar = await carsModel.readOne('6354cad79fe2a3706be16eb6');
-      expect(newCar).to.be.deep.equal(carMockWithId);
+      const searchedCar = await carsModel.readOne('6354cad79fe2a3706be16eb6');
+      expect(searchedCar).to.be.deep.equal(carMockWithId);
     });
 
     it('Testa se ao receber um "id" no formato incorreto, é gerado um o erro "InvalidIdHexadecimal"', async () => {
@@ -73,5 +74,46 @@ describe('Testa a camada de models "CarsModel"', () => {
       }
       expect(receivedError).to.be.equal('InvalidIdHexadecimal');
     });
+
+    it('Testa se caso não encontre um carro com o id enviado retorna "null"', async () => {
+      const searchedCar = await carsModel.readOne('6354cad79fe2a3706be16ed7');
+      expect(searchedCar).to.be.null;
+    });
   })
+
+    //  ======================  PUT  ======================  //
+
+    describe.only('Testa a função "update"', () => {
+
+      before(async () => {
+        sinon
+        .stub(Model, 'findOneAndUpdate')
+        .onCall(0).resolves(carMockWithId)
+        .onCall(1).resolves(null);
+      });
+    
+      after(()=>{
+        sinon.restore();
+      })
+  
+      it('Testa se ao receber um "id" e um objeto "car" no formato correto, a função "update" retorna o carro atualizado', async () => {
+        const searchedCar = await carsModel.update('6354cad79fe2a3706be16eb6', carMock);
+        expect(searchedCar).to.be.deep.equal(carMockWithId);
+      });
+  
+      it('Testa se ao receber um "id" no formato incorreto, é gerado um o erro "InvalidIdHexadecimal"', async () => {
+        let receivedError;
+        try {
+          await carsModel.update('idIncorreto101010', carMock);
+        } catch (err: any) {
+          receivedError = err.message;
+        }
+        expect(receivedError).to.be.equal('InvalidIdHexadecimal');
+      });
+  
+      it('Testa se caso não encontre um carro com o id enviado retorna "null"', async () => {
+        const searchedCar = await carsModel.update('6354cad79fe2a3706be16ed7', carMock);
+        expect(searchedCar).to.be.null;
+      });
+    })
 });
