@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
-import { carMock, carMockWithId } from '../mocks/carsMock'
+import { carMock, carMockWithId } from '../../mocks/carsMock'
 
 describe('Testa a camada de service "cars"', () => {
   const carsModel = new CarsModel();

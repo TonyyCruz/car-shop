@@ -21,7 +21,7 @@ export default abstract class MongoService<T> implements IService<T> {
     return response;
   }
 
-  public async update(_id: string, obj: Partial<T>): Promise<T> {
+  public async update(_id: string, obj: T): Promise<T> {
     this._zodSchema.parse(obj);
     const response = await this._model.update(_id, { ...obj });
     if (!response) throw new Error(ErrorTypes.ObjectNotFound);

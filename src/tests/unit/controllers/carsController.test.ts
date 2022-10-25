@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
 import CarsController from '../../../controllers/CarsController';
-import { carMock, carMockWithId } from '../mocks/carsMock'
+import { carMock, carMockWithId } from '../../mocks/carsMock'
 
 describe('Testa a camada de controller "cars"', () => {
   const carsModel = new CarsModel();

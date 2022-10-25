@@ -1,4 +1,4 @@
-import { ICar } from '../../../interfaces/ICar';
+import { ICar } from '../../interfaces/ICar';
 
 const carMock: ICar = {
   model: 'Batmobiles',
@@ -10,7 +10,7 @@ const carMock: ICar = {
 }
 
 const carMockWithId:ICar & { _id:string } = {
-  _id: '1d4leat0rioM0ck4do99999',
+  _id: '6354cad79fe2a3706be16eb6',
   model: 'Batmobiles',
   year: 2022,
   color: 'Black',

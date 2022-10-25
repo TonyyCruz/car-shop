@@ -2,28 +2,76 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { Model } from 'mongoose';
 import CarsModel from '../../../models/CarsModel';
-import { carMock, carMockWithId } from '../mocks/carsMock'
+import { carMock, carMockWithId } from '../../mocks/carsMock'
+import { ErrorTypes } from '../../../errors/catalog';
 
-describe('Testa a camada de models "cars"', () => {
+describe('Testa a camada de models "CarsModel"', () => {
   const carsModel = new CarsModel();
 
-  describe('Testa a inserção de um novo carro no banco de dados', () => {
+  //  ======================  POST  ======================  //
+  describe('Testa a função "create"', () => {
 
     before(async () => {
       sinon
         .stub(Model, 'create')
-        .onCall(0).resolves(carMockWithId);
+        .resolves(carMockWithId);
     });
   
     after(()=>{
       sinon.restore();
     })
   
-    it('Testa se é possível inserir um novo carro no banco de dados', async () => {
+    it('Testa se após a inserção é retornado o objeto inserido com o id gerado', async () => {
       const newCar = await carsModel.create(carMock);
       expect(newCar).to.be.deep.equal(carMockWithId);
     });
   })
 
+  //  ======================  GET  ======================  //
 
+  describe('Testa a função "read"', () => {
+
+    before(async () => {
+      sinon
+        .stub(Model, 'find')
+        .resolves([carMockWithId, carMockWithId]);
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+  
+    it('Testa se é a função "read" retorna um array de carros no formato esperado', async () => {
+      const newCar = await carsModel.read();
+      expect(newCar).to.be.deep.equal([carMockWithId, carMockWithId]);
+    });
+  })
+
+  describe.only('Testa a função "readOne"', () => {
+
+    before(async () => {
+      sinon
+      .stub(Model, 'findOne')
+      .resolves(carMockWithId);
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+
+    it('Testa se ao receber um "id" correto, é a função "readOne" retorna um carro no formato esperado', async () => {
+      const newCar = await carsModel.readOne('6354cad79fe2a3706be16eb6');
+      expect(newCar).to.be.deep.equal(carMockWithId);
+    });
+
+    it('Testa se ao receber um "id" no formato incorreto, é gerado um o erro "InvalidIdHexadecimal"', async () => {
+      let receivedError;
+      try {
+        await carsModel.readOne('idIncorreto101010');
+      } catch (err: any) {
+        receivedError = err.message;
+      }
+      expect(receivedError).to.be.equal('InvalidIdHexadecimal');
+    });
+  })
 });
