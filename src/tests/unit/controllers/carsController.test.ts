@@ -88,14 +88,11 @@ describe('Testa a camada de controller "cars"', () => {
   })
 
   //  ======================  PUT  ======================  //
-  describe.only('Testa a função "update" para atualizar um carro no banco de dados de acordo com o id enviado', () => {
+  describe('Testa a função "update" para atualizar um carro no banco de dados de acordo com o id enviado', () => {
 
     before(async () => {
       sinon
         .stub(carsService, 'update')
-        .resolves(carMockWithId);
-
-        sinon.stub(carsService, 'delete')
         .resolves(carMockWithId);
       
     res.status = sinon.stub().returns(res);
@@ -116,6 +113,33 @@ describe('Testa a camada de controller "cars"', () => {
       await carsController.update(req, res);      
       expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
     });
-    
+  })
+
+  //  ======================  DELETE  ======================  //
+  describe('Testa a função "update" para atualizar um carro no banco de dados de acordo com o id enviado', () => {
+
+    before(async () => {
+      sinon
+        .stub(carsService, 'delete')
+        .resolves(carMockWithId);
+      
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+    req.params = { id: '1' };
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+  
+    it('Testa se a função "delete" retorna um status "204" em caso de sucesso', async () => {
+      await carsController.delete(req, res);      
+      expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
+    });
+
+    it('Testa se a função "delete" retorna o objeto do carro deletado no formato esperado', async () => {
+      await carsController.delete(req, res);      
+      expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
+    });
   })
 });
