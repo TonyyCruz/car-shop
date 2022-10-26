@@ -46,7 +46,7 @@ describe('Testa a camada de controller "cars"', () => {
   });
 
       //  ======================  GET  ======================  //
-  describe.only('Testa a função "find" e "findOne" para buscar carro(s) no banco de dados', () => {
+  describe('Testa a função "find" e "findOne" para buscar carro(s) no banco de dados', () => {
 
     before(async () => {
       sinon
@@ -55,12 +55,6 @@ describe('Testa a camada de controller "cars"', () => {
 
       sinon
         .stub(carsService, 'readOne')
-        .resolves(carMockWithId);
-
-        sinon.stub(carsService, 'update')
-        .resolves(carMockWithId);
-
-        sinon.stub(carsService, 'delete')
         .resolves(carMockWithId);
       
       res.status = sinon.stub().returns(res);
@@ -91,5 +85,37 @@ describe('Testa a camada de controller "cars"', () => {
       await carsController.readOne(req, res);  
       expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
     });
+  })
+
+  //  ======================  PUT  ======================  //
+  describe.only('Testa a função "update" para atualizar um carro no banco de dados de acordo com o id enviado', () => {
+
+    before(async () => {
+      sinon
+        .stub(carsService, 'update')
+        .resolves(carMockWithId);
+
+        sinon.stub(carsService, 'delete')
+        .resolves(carMockWithId);
+      
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+    req.params = { id: '1' };
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+  
+    it('Testa se a função "update" retorna um status "200" em caso de sucesso', async () => {
+      await carsController.update(req, res);      
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    });
+
+    it('Testa se a função "update" retorna o objeto do carro alterado no formato esperado', async () => {
+      await carsController.update(req, res);      
+      expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
+    });
+    
   })
 });
