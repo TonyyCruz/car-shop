@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
 import { carMock, carMockWithId } from '../../mocks/carsMock'
+import { ErrorTypes } from '../../../errors/catalog'
 
 describe('Testa a camada de service "carsService"', () => {
   const carsModel = new CarsModel();
@@ -324,12 +325,12 @@ describe('Testa a camada de service "carsService"', () => {
       } catch (err: any) {
         errorMessage = err.message;
       }
-      expect(errorMessage).to.be.deep.equal('ObjectNotFound');
+      expect(errorMessage).to.be.deep.equal(ErrorTypes.ObjectNotFound);
     });
   });
 
     //  ======================  PUT  ======================  //
-    describe.only('Testa a função "update" para atualizar um carro no banco de dados', () => {
+    describe('Testa a função "update" para atualizar um carro no banco de dados', () => {
 
       before(async () => {
         sinon
@@ -351,7 +352,7 @@ describe('Testa a camada de service "carsService"', () => {
         } catch (err: any) {
           errorMessage = err.message;
         }
-        expect(errorMessage).to.be.deep.equal('ObjectNotFound');
+        expect(errorMessage).to.be.deep.equal(ErrorTypes.ObjectNotFound);
       });
     
       it('Testa se é possível atualizar um carro com dados corretos', async () => {
@@ -543,7 +544,7 @@ describe('Testa a camada de service "carsService"', () => {
     });
 
       //  ======================  DELETE  ======================  //
-    describe.only('Testa a função "delete" para excluir um carro no banco de dados', () => {
+    describe('Testa a função "delete" para excluir um carro no banco de dados', () => {
 
       before(async () => {
         sinon
@@ -565,7 +566,7 @@ describe('Testa a camada de service "carsService"', () => {
         } catch (err: any) {
           errorMessage = err.message;
         }
-        expect(errorMessage).to.be.deep.equal('ObjectNotFound');
+        expect(errorMessage).to.be.deep.equal(ErrorTypes.ObjectNotFound);
       });
     
       it('Testa se é possível excluir um carro com o id correto, e se o carro excluido é retornado', async () => {
