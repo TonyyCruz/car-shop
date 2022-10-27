@@ -1,8 +1,8 @@
 import carZodSchema, { ICar } from '../interfaces/ICar';
-import MongoService from './DefaultService';
+import AbstractService from './AbstractService';
 import { IModel } from '../interfaces/IModel';
 
-export default class CarsService extends MongoService<ICar> {
+export default class CarsService extends AbstractService<ICar> {
   constructor(private _CarsModel: IModel<ICar>) {
     super(_CarsModel, carZodSchema);
   }

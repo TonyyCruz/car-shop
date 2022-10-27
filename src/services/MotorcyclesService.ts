@@ -1,8 +1,8 @@
 import { IModel } from '../interfaces/IModel';
 import MotorcycleZodSchema, { IMotorcycle } from '../interfaces/IMotorcycle';
-import MongoService from './DefaultService';
+import AbstractService from './AbstractService';
 
-export default class MotorcyclesService extends MongoService<IMotorcycle> {
+export default class MotorcyclesService extends AbstractService<IMotorcycle> {
   constructor(private motorcycleModel: IModel<IMotorcycle>) {
     super(motorcycleModel, MotorcycleZodSchema);
   }

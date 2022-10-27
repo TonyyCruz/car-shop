@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import IService from '../../interfaces/IService';
 import IController from '../../interfaces/IController';
 
-export default abstract class MongoController<T> implements IController {
+export default abstract class AbstractController<T> implements IController {
   constructor(protected _service: IService<T>) {}
 
   public async create(req: Request, res: Response): Promise<Response> {

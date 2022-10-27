@@ -3,7 +3,7 @@ import { IModel } from '../../interfaces/IModel';
 import IService from '../../interfaces/IService';
 import { ErrorTypes } from '../../errors/catalog';
 
-export default abstract class MongoService<T> implements IService<T> {
+export default abstract class AbstractService<T> implements IService<T> {
   constructor(protected _model: IModel<T>, private _zodSchema: ZodObject<ZodRawShape>) {}
 
   public async create(obj: unknown): Promise<T> {
