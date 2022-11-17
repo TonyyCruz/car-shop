@@ -63,17 +63,6 @@
 
 ---
 
-- PUT `/post/:id` para atualizar o poste caso ele exista e pertença ao usuario logado. Utilize um body nesse formato:
-
-```jsx
-{
-  "title": "Lufeeeee",
-  "content": "Cade minha comida"
-}
-```
-
----
-
 - PUT `/cars/:id` para atualizar o carro com o id informado. Utilize um body nesse formato:
 
 ```jsx
