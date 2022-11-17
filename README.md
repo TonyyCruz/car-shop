@@ -125,6 +125,10 @@
 
 - **[TypeScript](https://www.typescriptlang.org/)**
 
+- **[Mocha](https://mochajs.org/)**
+
+- **[Chai](https://www.chaijs.com/)**
+
 ---
 
 ### 🚀 Como executar o projeto
