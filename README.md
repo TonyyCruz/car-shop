@@ -171,13 +171,18 @@ _Rode o serviço na raiz do projeto o comando_
 - Lembre-se de parar o `mongo` se estiver usando localmente na porta padrão `(27017)`, ou adapte, caso queria fazer uso da aplicação em containers.
 
 - Esse serviço irá inicializar dois containers chamados car_shop e outro chamado car_shop_db.
+
+- O back-end ficará acessível em `http://localhost:3001`
+
+- O front-end ficará acessível em `http://localhost:3000`
+
 - A partir daqui você pode rodar o container via CLI ou abri-lo no VS Code.
 
 _Via CLI use o comando_
 ```jsx
 docker exec -it car_shop bash
 ```
-- Ele te dará acesso ao terminal interativo do container blogs_api(node) criado pelo compose, que está rodando em segundo plano.
+- Ele te dará acesso ao terminal interativo do container car_shop criado pelo compose, que está rodando em segundo plano.
 
 _Instale as dependências `dentro do container` com_
 
