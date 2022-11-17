@@ -145,7 +145,7 @@ _Pré-requisitos_
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
-  - [Mysql](https://www.mysql.com/) para rodar local ou [Docker](https://docs.docker.com/get-docker/) para rodar em container.
+- [Mysql](https://www.mongodb.com/docs/manual/installation/) para rodar local ou [Docker](https://docs.docker.com/get-docker/) para rodar em container.
 
 
 É recomendado utilizar algum cliente HTTP, como [Postman](https://www.postman.com/) ou o [Insomnia](https://insomnia.rest/download).
@@ -157,7 +157,7 @@ Também é bom ter um editor para trabalhar com o código como [VSCode](https://
 _Clone o repositorio_
 
 ```jsx
-git clone git@github.com:TonyyCruz/blogs_api.git
+git git@github.com:TonyyCruz/car-shop.git
 ```
 
 ---
@@ -169,18 +169,20 @@ git clone git@github.com:TonyyCruz/blogs_api.git
   ## Com Docker
  
  
-_Rode o serviço `node` com o comando_
+_Rode o serviço na raiz do projeto o comando_
 
 ```jsx
   docker-compose up -d
 ```
 
-- Esse serviço irá inicializar dois containers chamados `blogs_api` e outro chamado `blogs_api_db`.
-  - A partir daqui você pode rodar o container via CLI ou abri-lo no VS Code.
+- Lembre-se de parar o `mongo` se estiver usando localmente na porta padrão `(27017)`, ou adapte, caso queria fazer uso da aplicação em containers.
+
+- Esse serviço irá inicializar dois containers chamados car_shop e outro chamado car_shop_db.
+- A partir daqui você pode rodar o container via CLI ou abri-lo no VS Code.
 
 _Via CLI use o comando_
 ```jsx
-docker exec -it blogs_api bash
+docker exec -it car_shop bash
 ```
 - Ele te dará acesso ao terminal interativo do container blogs_api(node) criado pelo compose, que está rodando em segundo plano.
 
@@ -217,24 +219,19 @@ npm install
 <details>
   <summary><strong>Scripts</strong></summary><br />
 
-  - Criar o banco de dados e gerar as tabelas:
+  - Iniciar o servidor:
   ```sh
-    npm run prestart
+    npm run dev
   ```
 
-  - Limpar e popular o banco de dados:
+  - Iniciar rodar os testes:
   ```sh
-    npm run seed
+    npm run test:dev
   ```
-
-  - Iniciar o servidor Node:
+  
+    - Verificar cobertura dos testes:
   ```sh
-    npm start
-  ```
-
-  - Iniciar o servidor Node com nodemon:
-  ```sh
-    npm run debug
+    npm run test:coverage
   ```
 
   <br />
