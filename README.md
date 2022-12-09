@@ -150,7 +150,7 @@ Também é bom ter um editor para trabalhar com o código como [VSCode](https://
 _Clone o repositorio_
 
 ```jsx
-git git@github.com:TonyyCruz/car-shop.git
+git clone git@github.com:TonyyCruz/car-shop.git
 ```
 
 ---
